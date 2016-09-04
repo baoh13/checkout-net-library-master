@@ -21,6 +21,8 @@
         private static string _customersApiUri;
         private static string _customerApiUri;
 
+        private static string _ordersApiUri;
+
         private static string _cardsApiUri;
         private static string _cardApiUri;
 
@@ -126,6 +128,9 @@
 
         public static string VisaCheckout
             => _visaCheckout ?? (_visaCheckout = string.Concat(AppSettings.BaseApiUri, "/tokens/card/visa-checkout"));
+
+        public static string Orders
+            => _ordersApiUri ?? (_ordersApiUri = string.Concat(AppSettings.BaseApiUri, "/orders"));
 
         public static string Customers
             => _customersApiUri ?? (_customersApiUri = string.Concat(AppSettings.BaseApiUri, "/customers"));

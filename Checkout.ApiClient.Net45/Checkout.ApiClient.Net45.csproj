@@ -41,15 +41,20 @@
     <AppConfig>App.$(Configuration).config</AppConfig>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiServices\Cards\CardService.cs" />
@@ -88,6 +93,10 @@
     <Compile Include="ApiServices\Lookups\LookupsService.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\CountryInfo.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\LocalPaymentData.cs" />
+    <Compile Include="ApiServices\Orders\OrderService.cs" />
+    <Compile Include="ApiServices\Orders\RequestModels\OrderCreate.cs" />
+    <Compile Include="ApiServices\Orders\ResponseModels\Order.cs" />
+    <Compile Include="ApiServices\Orders\ResponseModels\Token.cs" />
     <Compile Include="ApiServices\Reporting\ReportingService.cs" />
     <Compile Include="ApiServices\Reporting\ResponseModels\Chargeback.cs" />
     <Compile Include="ApiServices\Reporting\ResponseModels\QueryChargebackResponse.cs" />
@@ -163,6 +172,7 @@
     <Compile Include="Utilities\UrlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="App.Debug.config">
       <SubType>Designer</SubType>
     </None>

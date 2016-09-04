@@ -1,15 +1,14 @@
 ﻿using Checkout.ApiServices.Cards.RequestModels;
 using Checkout.ApiServices.Charges.RequestModels;
 using Checkout.ApiServices.Customers.RequestModels;
-using Checkout.ApiServices.Reporting.RequestModels;
+using Checkout.ApiServices.Orders.RequestModels;
 using Checkout.ApiServices.RecurringPayments.RequestModels;
+using Checkout.ApiServices.Reporting.RequestModels;
 using Checkout.ApiServices.SharedModels;
 using Checkout.ApiServices.Tokens.RequestModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Tests.Utils;
-using FilterAction = Checkout.ApiServices.SharedModels.Action;
 
 namespace Tests
 {
@@ -18,6 +17,19 @@ namespace Tests
         private static RandomData _randomData;
 
         public static RandomData RandomData { get { return _randomData ?? (_randomData = new RandomData()); } }
+
+        #region Order Helpers
+
+        public static OrderCreate GetOrderCreateModel(string name = "TestOrder", int quantity = 3)
+        {
+            return new OrderCreate
+            {
+                Name = name,
+                Quantity = quantity
+            };
+        }
+
+        #endregion
 
         #region Recurring Plans Helpers
 

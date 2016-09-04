@@ -3,13 +3,11 @@ using Checkout.Helpers;
 using Checkout.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Checkout
@@ -73,6 +71,12 @@ namespace Checkout
             { return values.First(); }
 
             return null;
+        }
+
+        public HttpResponseMessage GetAccessToken(string requestUri, HttpContent requestPayLoad)
+        {
+            return httpClient.PostAsync(requestUri, requestPayLoad)
+                             .Result;
         }
 
        
@@ -219,6 +223,14 @@ namespace Checkout
 
         private HttpResponse<T> CreateHttpResponse<T>(string responseAsString, HttpStatusCode httpStatusCode)
         {
+            if (httpStatusCode == HttpStatusCode.Created && responseAsString != null)
+            {
+                return new HttpResponse<T>(GetResponseAsObject<T>(responseAsString))
+                {
+                    HttpStatusCode = httpStatusCode
+                };
+            }
+
             if (httpStatusCode == HttpStatusCode.OK && responseAsString != null)
             {
                 return new HttpResponse<T>(GetResponseAsObject<T>(responseAsString))

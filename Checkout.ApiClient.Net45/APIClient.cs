@@ -2,8 +2,9 @@
 using Checkout.ApiServices.Charges;
 using Checkout.ApiServices.Customers;
 using Checkout.ApiServices.Lookups;
-using Checkout.ApiServices.Reporting;
+using Checkout.ApiServices.Orders;
 using Checkout.ApiServices.RecurringPayments;
+using Checkout.ApiServices.Reporting;
 using Checkout.ApiServices.Tokens;
 using Checkout.Helpers;
 
@@ -13,6 +14,7 @@ namespace Checkout
     {
         private TokenService _tokenService;
         private CustomerService _customerService;
+        private OrderService _orderService;
         private CardService _cardService;
         private ChargeService _chargeService;
         private ReportingService _reportingService;
@@ -22,6 +24,7 @@ namespace Checkout
         public ChargeService ChargeService { get { return _chargeService ?? (_chargeService = new ChargeService()); } }
         public CardService CardService { get { return _cardService ?? (_cardService = new CardService()); } }
         public CustomerService CustomerService { get { return _customerService ?? (_customerService = new CustomerService()); } }
+        public OrderService OrderService { get { return _orderService ?? (_orderService = new OrderService()); } }
         public TokenService TokenService { get { return _tokenService ?? (_tokenService = new TokenService()); } }
         public ReportingService ReportingService { get { return _reportingService ?? (_reportingService = new ReportingService()); } }
         public LookupsService LookupsService { get { return _lookupsService ?? (_lookupsService = new LookupsService()); } }

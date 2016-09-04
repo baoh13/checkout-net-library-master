@@ -81,6 +81,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LookupsService\LookupsServiceTests.cs" />
+    <Compile Include="OrderService\OrderServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportingService\ReportingServiceTests.cs" />
     <Compile Include="RecurringPaymentsService\RecurringPaymentsServiceTests.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Utils\ReflectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="App.Debug.config">
       <SubType>Designer</SubType>
     </None>
