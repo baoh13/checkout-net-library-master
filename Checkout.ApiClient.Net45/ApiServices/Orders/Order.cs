@@ -1,6 +1,6 @@
-﻿namespace Checkout.ApiServices.Orders.RequestModels
+﻿namespace Checkout.ApiServices.Orders
 {
-    public class OrderCreate
+    public class Order
     {
         public string Name { get; set; }
         public int Quantity { get; set; } 

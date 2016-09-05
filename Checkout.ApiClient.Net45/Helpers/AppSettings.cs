@@ -1,5 +1,4 @@
-﻿using Checkout.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using CheckoutEnvironment = Checkout.Helpers.Environment;
@@ -11,6 +10,8 @@ namespace Checkout
     public sealed class AppSettings
     {
         private static CheckoutEnvironment _environment = CheckoutEnvironment.Undefined;
+        private static string _orderServiceAccessTokenKey;
+        private static string _orderServiceAccessTokenId;
         private static string _secretKey;
         private static string _publicKey;
         private static string _baseApiUri;
@@ -27,6 +28,18 @@ namespace Checkout
             get { return _baseApiUri; }
             set { _baseApiUri = value; }
         }
+        public static string OrderServiceAccessTokenKey
+        {
+            get { return _orderServiceAccessTokenKey ?? (_orderServiceAccessTokenKey = ReadConfig("OrderService.SecretKey", true)); }
+            set { _orderServiceAccessTokenKey = value; }
+        }
+
+        public static string OrderServiceAccessTokenId
+        {
+            get { return _orderServiceAccessTokenId ?? (_orderServiceAccessTokenId = ReadConfig("OrderService.Id", true)); }
+            set { _secretKey = value; }
+        }
+
         public static string SecretKey
         {
             get { return _secretKey ?? (_secretKey = ReadConfig("Checkout.SecretKey", true)); }

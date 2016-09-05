@@ -93,9 +93,9 @@
     <Compile Include="ApiServices\Lookups\LookupsService.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\CountryInfo.cs" />
     <Compile Include="ApiServices\Lookups\ResponseModels\LocalPaymentData.cs" />
+    <Compile Include="ApiServices\Orders\Order.cs" />
     <Compile Include="ApiServices\Orders\OrderService.cs" />
-    <Compile Include="ApiServices\Orders\RequestModels\OrderCreate.cs" />
-    <Compile Include="ApiServices\Orders\ResponseModels\Order.cs" />
+    <Compile Include="ApiServices\Orders\ResponseModels\OrderList.cs" />
     <Compile Include="ApiServices\Orders\ResponseModels\Token.cs" />
     <Compile Include="ApiServices\Reporting\ReportingService.cs" />
     <Compile Include="ApiServices\Reporting\ResponseModels\Chargeback.cs" />

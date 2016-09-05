@@ -1,5 +1,4 @@
-﻿using Checkout.ApiServices.Orders.RequestModels;
-using Checkout.ApiServices.Orders.ResponseModels;
+﻿using Checkout.ApiServices.Orders.ResponseModels;
 using Checkout.ApiServices.SharedModels;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -11,37 +10,60 @@ namespace Checkout.ApiServices.Orders
     public class OrderService
     {
         private readonly string _baseAddress = "http://localhost:63715";
-        private ApiHttpClient _client = new ApiHttpClient();
 
-        public HttpResponse<Order> CreateOrder(OrderCreate requestModel)
+        public HttpResponse<Order> CreateOrder(Order requestModel)
         {
             var token = GetAccessToken();
 
             var createOrderUri = string.Concat(_baseAddress, "/api/orders");
-            return _client.PostRequest<Order>(createOrderUri, string.Format("Bearer {0}", token.AccessToken), requestModel);
+            return new ApiHttpClient().PostRequest<Order>(createOrderUri, string.Format("Bearer {0}", token.AccessToken), requestModel);
         }
 
-        public HttpResponse<Order> GetOrders(string name)
+        public HttpResponse<OrderList> GetOrders()
+        {
+            var token = GetAccessToken();
+
+            var createOrderUri = string.Concat(_baseAddress, "/api/orders");
+            return new ApiHttpClient().GetRequest<OrderList>(createOrderUri, string.Format("Bearer {0}", token.AccessToken));
+        }
+
+        public HttpResponse<Order> GetOrder(string name)
         {
             var token = GetAccessToken();
 
             var createOrderUri = string.Concat(_baseAddress, string.Format("/api/orders/{0}", name));
-            return _client.PostRequest<Order>(createOrderUri, string.Format("Bearer {0}", token.AccessToken), name);
+            return new ApiHttpClient().GetRequest<Order>(createOrderUri, string.Format("Bearer {0}", token.AccessToken));
         }
 
+        public HttpResponse<Order> UpdateOrder(Order order)
+        {
+            var token = GetAccessToken();
 
+            var createOrderUri = string.Concat(_baseAddress, "/api/orders");
+            return new ApiHttpClient().PutRequest<Order>(createOrderUri, string.Format("Bearer {0}", token.AccessToken), order);
+        }
+
+        public HttpResponse<OkResponse> DeleteOrder(string name)
+        {
+            var token = GetAccessToken();
+
+            var createOrderUri = string.Concat(_baseAddress, string.Format("/api/orders/{0}", name));
+            return new ApiHttpClient().DeleteRequest<OkResponse>(createOrderUri, string.Format("Bearer {0}", token.AccessToken));
+        }
 
         private Token GetAccessToken()
         {
             var form = new Dictionary<string, string>
             {
                 {"grant_type", "password"},
-                {"username", "jignesh"},
-                {"password", "user123456"},
+                {"username", AppSettings.OrderServiceAccessTokenId},
+                {"password", AppSettings.OrderServiceAccessTokenKey}
             };
 
-            var tokenResponse = _client.GetAccessToken(_baseAddress + "/oauth/token", new FormUrlEncodedContent(form));
-
+            var httpClient = new HttpClient();
+            
+            var tokenResponse = httpClient.PostAsync(_baseAddress + "/oauth/token", new FormUrlEncodedContent(form))
+                                          .Result;
             string jsonMessage;
             using (var responseStream = tokenResponse.Content.ReadAsStreamAsync().Result)
             {

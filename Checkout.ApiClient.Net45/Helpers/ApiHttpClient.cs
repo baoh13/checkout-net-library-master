@@ -197,7 +197,7 @@ namespace Checkout
                         Console.WriteLine(string.Format("\n** HttpResponse - Status {0}**\n {1}\n", responseMessage.StatusCode, responseAsString));
                     }
                 }
-
+                
                 response = Task.FromResult(CreateHttpResponse<T>(responseAsString, responseMessage.StatusCode));
             }
             catch (Exception ex)
@@ -223,6 +223,13 @@ namespace Checkout
 
         private HttpResponse<T> CreateHttpResponse<T>(string responseAsString, HttpStatusCode httpStatusCode)
         {
+            if (httpStatusCode == HttpStatusCode.NoContent)
+            {
+                return new HttpResponse<T>(default(T))
+                {
+                    HttpStatusCode = httpStatusCode
+                };
+            }
             if (httpStatusCode == HttpStatusCode.Created && responseAsString != null)
             {
                 return new HttpResponse<T>(GetResponseAsObject<T>(responseAsString))
@@ -233,6 +240,13 @@ namespace Checkout
 
             if (httpStatusCode == HttpStatusCode.OK && responseAsString != null)
             {
+                if (responseAsString.StartsWith("["))
+                {
+                    return new HttpResponse<T>(default(T))
+                    {
+                        HttpStatusCode = httpStatusCode
+                    };
+                }
                 return new HttpResponse<T>(GetResponseAsObject<T>(responseAsString))
                 {
                     HttpStatusCode = httpStatusCode
@@ -259,6 +273,5 @@ namespace Checkout
         {
             return ContentAdaptor.JsonStringToObject<T>(responseAsString);
         }
-
     }
 }

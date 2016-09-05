@@ -1,13 +1,13 @@
 ﻿using Checkout.ApiServices.Cards.RequestModels;
 using Checkout.ApiServices.Charges.RequestModels;
 using Checkout.ApiServices.Customers.RequestModels;
-using Checkout.ApiServices.Orders.RequestModels;
 using Checkout.ApiServices.RecurringPayments.RequestModels;
 using Checkout.ApiServices.Reporting.RequestModels;
 using Checkout.ApiServices.SharedModels;
 using Checkout.ApiServices.Tokens.RequestModels;
 using System;
 using System.Collections.Generic;
+using Checkout.ApiServices.Orders;
 using Tests.Utils;
 
 namespace Tests
@@ -20,9 +20,9 @@ namespace Tests
 
         #region Order Helpers
 
-        public static OrderCreate GetOrderCreateModel(string name = "TestOrder", int quantity = 3)
+        public static Order GetOrderCreateModel(string name = "TestOrder", int quantity = 3)
         {
-            return new OrderCreate
+            return new Order
             {
                 Name = name,
                 Quantity = quantity
